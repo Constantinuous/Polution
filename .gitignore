@@ -1,0 +1,6 @@
+test/nuget-packages/
+bin/
+obj/
+.vs/
+*.user
+test/deploy/
