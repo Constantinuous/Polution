@@ -103,7 +103,7 @@ function Get-Projects{
     }
 }
 
-function Get-ProjectFiles{
+function Get-ProjectInfo{
     [CmdletBinding()]
     param(
 	    [Parameter(ValueFromPipeline, Position=1, Mandatory=0)]
@@ -119,10 +119,10 @@ function Get-ProjectFiles{
         [xml] $xmlDoc = Get-Content $projectFile
         $projectInfo = [ProjectInfo]::new($projectFile, $xmlDoc)
 
-        $projectInfo | Format-Table $projectInfo.TableFormat()
+        $projectInfo
     }
 }
 
 
 Export-ModuleMember -Function Get-Projects
-Export-ModuleMember -Function Get-ProjectFiles
+Export-ModuleMember -Function Get-ProjectInfo

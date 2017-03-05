@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Parameters for Web Deploy Parametrization -->
+<parameters>
+  <parameter name="SomeKey" description="Please provide the key">
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='SomeKey']/@value" />
+  </parameter>
+  <parameter name="AnUrl" description="Please provide the url">
+    <parameterEntry kind="TextFile" scope="\\web.config$" match="@@anUrl@@" />
+  </parameter>
+</parameters>
