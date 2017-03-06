@@ -1,8 +1,8 @@
-Import-Module $PSScriptRoot\Polution.psd1 -Force
+Import-Module $PSScriptRoot\..\Polution -Force
 
 
 Describe "Solution parsing" {
-    [SolutionProject[]] $projects = Get-Projects "$PSScriptRoot\test\TestSolution\TestSolution.sln"
+    [SolutionProject[]] $projects = Get-Projects "$PSScriptRoot\TestData\TestSolution\TestSolution.sln"
 
     It "Should find two projects" {
         ($projects).Count | Should Be 2
@@ -10,7 +10,7 @@ Describe "Solution parsing" {
 }
 
 Describe "Visual Basic Project parsing" {
-    [ProjectInfo] $projectInfo = Get-ProjectInfo "$PSScriptRoot\test\TestSolution\Web\Web.vbproj"
+    [ProjectInfo] $projectInfo = Get-ProjectInfo "$PSScriptRoot\TestData\TestSolution\Web\Web.vbproj"
 
     It "Should determine correct name" {
         ($projectInfo).Name | Should Be "Web.vbproj"
@@ -50,7 +50,7 @@ Describe "Visual Basic Project parsing" {
 }
 
 Describe "C Sharp Project parsing" {
-    [ProjectInfo] $projectInfo = Get-ProjectInfo "$PSScriptRoot\test\TestSolution\Job\Job.csproj"
+    [ProjectInfo] $projectInfo = Get-ProjectInfo "$PSScriptRoot\TestData\TestSolution\Job\Job.csproj"
 
     It "Should determine correct name" {
         ($projectInfo).Name | Should Be "Job.csproj"
