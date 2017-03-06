@@ -4,3 +4,4 @@ obj/
 .vs/
 *.user
 test/deploy/
+Tests/nuget-packages/
