@@ -42,7 +42,3 @@ function Get-ProjectInfo{
         $projectInfo
     }
 }
-
-
-Export-ModuleMember -Function Get-Projects
-Export-ModuleMember -Function Get-ProjectInfo
