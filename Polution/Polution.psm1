@@ -5,7 +5,20 @@ Get-ChildItem -Path $PSScriptRoot | Where {
     . $_.FullName 
 }
 
+<# 
+ .SYNOPSIS
+  Gets the projects in a solution.
 
+ .DESCRIPTION
+  Gets the projects in a solution. Parses a .sln file and returns the projects referenced by the solution in the form of a of [SolutionProject[]].
+
+ .PARAMETER solutionFile
+  The path to a solution (.sln) file.
+
+ .EXAMPLE
+   # Get the projectinfo for a solutio
+   Get-Projects SomeSolution.sln
+#>
 function Get-Projects{
     [CmdletBinding()]    
     [OutputType([SolutionProject[]])] 
@@ -33,6 +46,21 @@ function Get-Projects{
     }
 }
 
+<# 
+ .SYNOPSIS
+  Gets the information in a project file.
+
+ .DESCRIPTION
+  Gets the information in a project file. Parses .csproj or .vbproj files.
+  Returns what contents, nones, compiles the project describes.
+
+ .PARAMETER solutionFile
+  The path to project (.csproj or .vbproj) files.
+
+ .EXAMPLE
+   # Get the projects inside a solution
+   Get-ProjectInfo SomeProject.csproj
+#>
 function Get-ProjectInfo{
     [CmdletBinding()]
     [OutputType([ProjectInfo[]])]
@@ -43,7 +71,7 @@ function Get-ProjectInfo{
     )
     process {
         if(!(Test-Path $projectFile)){
-            throw "Solution $projectFile does not exist"
+            throw "Project $projectFile does not exist"
         }
         $projectFile = $projectFile | Resolve-Path
 
