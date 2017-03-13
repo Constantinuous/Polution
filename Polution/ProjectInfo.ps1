@@ -1,12 +1,7 @@
-
-Class SolutionProject {
-    [String] $ProjectName
-    [String] $ProjectLocation
-
-    SolutionProject([String] $projectName, [String] $projectLocation){
-        $this.ProjectName = $projectName
-        $this.ProjectLocation = $projectLocation
-    }
+Enum Language {
+    Unknown
+    VisualBasic
+    Csharp
 }
 
 Class ProjectInfo {
@@ -31,7 +26,7 @@ Class ProjectInfo {
         elseif($extension -eq ".vbproj"){ $this.Language = [Language]::VisualBasic }
         else{ $this.Language = [Language]::Unknown }
 
-
+        Write-Host $path
         $this.Content = $projectXml.Project.ItemGroup.Content.Include
         $this.None = $projectXml.Project.ItemGroup.None.Include
         $this.Compile = $projectXml.Project.ItemGroup.Compile.Include

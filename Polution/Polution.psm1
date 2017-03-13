@@ -1,5 +1,14 @@
-﻿function Get-Projects{
-    [CmdletBinding()]
+﻿# Dot Source files
+Get-ChildItem -Path $PSScriptRoot | Where { 
+    $_.Extension -eq ".ps1" 
+} | Foreach { 
+    . $_.FullName 
+}
+
+
+function Get-Projects{
+    [CmdletBinding()]    
+    [OutputType([SolutionProject[]])] 
     param(
 	    [Parameter(ValueFromPipeline, Position=1, Mandatory=0)]
 	    [ValidateNotNullOrEmpty()]
@@ -12,8 +21,9 @@
 
         $content = Get-Content $solutionFile
 	    $matchInfo = $content | Select-String -pattern "Project\(`"\{[\w-]*\}`"\) = `"([\w _]*.*)`", `"(.*\.(cs|vcx|vb)proj)`"" -AllMatches
+		$matches = if($matchInfo){ $matchInfo.Matches } else { @() }
 	
-	    $solutionProjects = $matchInfo.Matches | % {
+	    $solutionProjects = $matches | Foreach {
             $solutionProject = [SolutionProject]::new($_.Groups[1], $_.Groups[2])
         
             $solutionProject
@@ -25,6 +35,7 @@
 
 function Get-ProjectInfo{
     [CmdletBinding()]
+    [OutputType([ProjectInfo[]])]
     param(
 	    [Parameter(ValueFromPipeline, Position=1, Mandatory=0)]
 	    [ValidateNotNullOrEmpty()]
