@@ -1,11 +1,4 @@
-$date = Get-Date -Format g
-$releaseNotes = @"
-	What's New in Polution
-	$date
-
-	* Initial Version
-"@
-
+# Get-Module Polution | Remove-Module; Import-Module .\Polution\Polution.psd1; Get-Module Polution
 function Main {
 	TestModule
 	PublishModule
@@ -27,16 +20,16 @@ function PublishModule {
 		NuGetApiKey = [string] $NuGetApiKey
 	}
 
-	# Publish-Module @p
+	Publish-Module @p
 }
 
 function TestModuleUpload {
 	$modules = Find-Module Polution
 	if($modules.Length -eq 0){
 		Write-Error "Could not find Polution in Powershell Gallery"
-	}else if($modules.Length -ne 1){
-		Write-Error "Found more than one Powershell Module Polution in Gallery"
 	}
+
+    $modules | Format-Table
 }
 
 main
